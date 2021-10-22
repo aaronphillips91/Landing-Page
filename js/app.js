@@ -60,10 +60,12 @@ function getCoordinates() {
 
 function smoothScroll() {
     for (i in itemArr) {
-        menuLink[i].addEventListener('click', function(event){ 
+        let link = menuLink[i];
+        let section = coor[i];
+        link.addEventListener('click', function(event){ 
             event.preventDefault();
             window.scrollTo({
-                top: coor[i],
+                top: section,
                 behavior: 'smooth'
             })
         })
