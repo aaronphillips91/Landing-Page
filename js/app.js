@@ -29,6 +29,23 @@ let itemArr = [];
 let sectionArr = [];
 let coor = [];
 let menuLink = document.getElementsByClassName('menu__link');
+const sections = document.querySelectorAll("section");
+
+const options = {
+    root: null,
+    threshold: 0.1,
+}
+
+const observer = new IntersectionObserver(function
+    (entries, observer) {
+        entries.forEach(entry => {
+            entry.target.classList.toggle("your-active-class");
+        });
+    }, options);
+
+sections.forEach(section => {
+    observer.observe(section);
+})
 
 /**
  * End Global Variables
@@ -44,8 +61,6 @@ function generateListItems() {
         itemArr.push(itemNumber);
         itemNumber += 1;
         navbarList.appendChild(navbarItem);
-        //debugging tool to prove that the list items were created.
-        console.log(`Created a list item called: ${sectionName}`)
     }
 }
 
@@ -71,6 +86,7 @@ function smoothScroll() {
         })
     }
 }
+
 
 /**
  * End Helper Functions
