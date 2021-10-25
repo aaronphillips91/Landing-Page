@@ -31,32 +31,18 @@ let coor = [];
 let menuLink = document.getElementsByClassName('menu__link');
 const sections = document.querySelectorAll("section");
 
-const options = {
-    root: null,
-    threshold: 0.5,
-}
-
-const observer = new IntersectionObserver(function
-    (entries, observer) {
-        entries.forEach(entry => {
-            entry.target.classList.toggle("your-active-class");
-        });
-    }, options);
-
-sections.forEach(section => {
-    observer.observe(section);
-})
-
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
+
+// generates a list of all navbar items based on sections in html
 function generateListItems() {
     for (item of navbarItems) {
-        var sectionName = item.getAttribute("data-nav");
-        var sectionLink = item.getAttribute("id");
-        var navbarItem = document.createElement("li");
+        let sectionName = item.getAttribute("data-nav");
+        let sectionLink = item.getAttribute("id");
+        let navbarItem = document.createElement("li");
         navbarItem.innerHTML = `<a class='menu__link' id='link${itemNumber}' href='#${sectionLink}'>${sectionName}</a>`;
         itemArr.push(itemNumber);
         itemNumber += 1;
@@ -64,8 +50,9 @@ function generateListItems() {
     }
 }
 
+// runs through the list of navbar items and finds the location on the page
 function getCoordinates() {
-    var i = 0;
+    let i = 0;
     for (item of navbarItems) {
         sectionArr[i] = item.getBoundingClientRect();
         coor.push(sectionArr[i].top)
@@ -73,6 +60,7 @@ function getCoordinates() {
     }
 }
 
+// adds smooth scrolling when clicking a link in the navbar
 function smoothScroll() {
     for (i in itemArr) {
         let link = menuLink[i];
@@ -98,7 +86,23 @@ function smoothScroll() {
 generateListItems();
 getCoordinates();
 
+// options for the InterectionObserver
+const options = {
+    root: null,
+    threshold: 0.5,
+}
+
 // Add class 'active' to section when near top of viewport
+const observer = new IntersectionObserver(function
+    (entries, observer) {
+        entries.forEach(entry => {
+            entry.target.classList.toggle("your-active-class");
+        });
+    }, options);
+
+sections.forEach(section => {
+    observer.observe(section);
+})
  
 
 // Scroll to anchor ID using scrollTO event
@@ -107,13 +111,4 @@ smoothScroll();
 
 /**
  * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
+ * */
